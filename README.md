@@ -32,13 +32,13 @@ Opened rails server to see web page in action
 Rooted landing page to index
     root "post#index"
 
-app/controller/post_controller.rb
-    commented out   line 3 -->      @post = Post.all
-
 app/views/post/index.html.erb
     <h1>Calico Post Titles</h1>
-    <h2>lets Just see</h2>
-    <h2>Fake Post</h2>
-    <h2>Check this</h2>    
+
+    <ul>
+    <% @post.each do |post| %>
+    <li><%= post.title %></li>
+    <% end %>
+    </ul>   
 
 
