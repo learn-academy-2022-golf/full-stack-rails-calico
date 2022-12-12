@@ -1,24 +1,44 @@
-# README
+Steps taken:
+$ rails generate model CalicoBlogPost title:string content:string
+$ rails db:create
+$ rails generate controller CalicoBlogPost
+$ rails db:migrate
+Quick change to naming convention as recommended by Austin to save typing time.  We deleted the model and controller then re-generated new model and controller name Post. 
+$ rails d controller CalicoBlogPost
+$ rails d model CalicoBlogPost 
+$ rails g controller Post 
+$ rails g model Post title content:text
+                        ^ Rails built in short cut, title is a recognized key word and it already knows its a string.
+$ rails db:drop
+    had to also drop initial db from old naming convention. 
+    After deleting database also had to manually go in and delete schema file before creating new database. 
+$ rails db:create
+$ rails db:migrate
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+app/controller/post_controller.rb
+    def index
+        @post = Post.all
+    end
 
-Things you may want to cover:
+config/routes.rb
+     get 'post' => 'post#index'
 
-* Ruby version
+created index file for app/views/post
+    index.html.erb
 
-* System dependencies
+Opened rails server to see web page in action
+    rails s
 
-* Configuration
+Rooted landing page to index
+    root "post#index"
 
-* Database creation
+app/views/post/index.html.erb
+    <h1>Calico Post Titles</h1>
 
-* Database initialization
+    <ul>
+    <% @post.each do |post| %>
+    <li><%= post.title %></li>
+    <% end %>
+    </ul>   
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
