@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "post#index"
   get 'posts' => 'post#index', as: 'posts'
+  get 'posts/new' => 'post#new', as: 'new_post'
   get 'posts/:id' => 'post#show', as: 'post'
+
 
 end
