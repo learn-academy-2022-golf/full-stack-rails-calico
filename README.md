@@ -17,11 +17,11 @@ $ rails db:migrate
 
 app/controller/post_controller.rb
     def index
-        @post = Post.all
+        @posts = Post.all
     end
 
 config/routes.rb
-     get 'post' => 'post#index'
+    get 'posts' => 'post#index'
 
 created index file for app/views/post
     index.html.erb
@@ -36,9 +36,34 @@ app/views/post/index.html.erb
     <h1>Calico Post Titles</h1>
 
     <ul>
-    <% @post.each do |post| %>
+    <% @posts.each do |post| %>
     <li><%= post.title %></li>
     <% end %>
     </ul>   
 
+app/controller/post_controller.rb
+    def show
+        @post = Post.find(params[:id])
+    end
 
+config/routes.rb
+    get 'posts/:id' => 'post#show'
+
+app/views/post/show.html.erb
+    <h2>Blog Post: <%= @post.title %></h2>
+
+    <p><%= @post.content %></p>
+
+    <%= link_to 'Blog Post Home', posts_path %>
+
+app/views/post/index.html.erb
+
+    <% @posts.each do |post| %>
+    <li><%= link_to post.title, post_path(post) %></li>
+    <% end %>
+
+config/routes.rb
+
+    root "post#index"
+    get 'posts' => 'post#index', as: 'posts'
+    get 'posts/:id' => 'post#show', as: 'post'
